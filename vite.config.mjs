@@ -2,6 +2,13 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { rm } from "node:fs/promises";
 
+const githubRepositoryName = process.env.GITHUB_REPOSITORY?.split("/").pop();
+const deployBase = process.env.GITHUB_ACTIONS && githubRepositoryName
+  ? `/${githubRepositoryName}/`
+  : process.env.GITLAB_CI
+    ? "./"
+    : "/";
+
 function excludeQaArtifacts() {
   return {
     name: "exclude-qa-artifacts",
@@ -13,7 +20,7 @@ function excludeQaArtifacts() {
 }
 
 export default defineConfig({
-  base: process.env.GITLAB_CI ? "./" : "/",
+  base: deployBase,
   build: {
     outDir: "dist/client",
   },

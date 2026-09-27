@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+
+# Local design and QA working files are not part of the deployable app.
+AGENTS.md
+design-qa.md
+qa/
+public/qa/
